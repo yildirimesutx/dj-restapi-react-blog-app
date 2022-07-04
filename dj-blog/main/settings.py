@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'users',
+    'blog',
+    # swagger
+    'drf_yasg',
+    "debug_toolbar",
 
     # third party apps
     'rest_framework',
@@ -59,6 +63,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,4 +158,10 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
  
+]
+
+INTERNAL_IPS = [
+    
+"127.0.0.1",
+
 ]
