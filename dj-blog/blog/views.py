@@ -7,3 +7,4 @@ from rest_framework import  viewsets
 class NewPostView(viewsets.ModelViewSet):
     queryset = NewPost.objects.all()
     serializer_class = NewPostSerializer
+   

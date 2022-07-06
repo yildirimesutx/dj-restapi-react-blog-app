@@ -35,7 +35,6 @@ class NewPostSerializer(serializers.ModelSerializer):
            "content",
            "post_image",
            "created",
-           "category",
            "user",
            "post_view",
            "post_like",

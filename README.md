@@ -156,3 +156,37 @@ belirtilen yerlereyazıyoruz.
 your client id 514431124829-t3n8rs4cvt97rd6i4vcpg5gsrobqpp78.apps.googleusercontent.com
 
 your client secret  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
+
+
+
+# django-cors-headers 3.13.0
+
+```
+python -m pip install django-cors-headers
+
+ALLOWED_HOSTS = ['*']
+
+
+INSTALLED_APPS = [
+    ...,
+    "corsheaders",
+    ...,
+]
+
+MIDDLEWARE = [
+     
+     EN ÜSTEN 3. SIRAYA
+    "corsheaders.middleware.CorsMiddleware",
+
+    ...,
+]
+
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = (
+  'Access-Control-Allow-Origin: *',
+)
+
+```

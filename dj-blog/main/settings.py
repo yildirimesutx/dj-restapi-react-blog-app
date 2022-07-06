@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xre&r29@rg(!yp^3*00b2$cyj!=nuas=)q^f!68qr!$lq@#v88
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     # google
    
     'allauth.socialaccount.providers.google',
+    # cors
+    "corsheaders",
 
 ]
 
@@ -65,6 +67,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -72,6 +75,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_EXPOSE_HEADERS = (
+  'Access-Control-Allow-Origin: *',
+)
+
+
 
 ROOT_URLCONF = 'main.urls'
 

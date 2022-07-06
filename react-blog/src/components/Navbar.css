@@ -1,0 +1,26 @@
+.cw_img{
+    width: 50px;
+   
+}
+
+.cw_img:hover{
+    cursor:pointer;
+}
+
+.toolbar{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    
+}
+h1{
+    color: white;
+    text-decoration: none;
+    font-family: 'Girassol', cursive;
+}
+
+.bar{
+    background-color: aquamarine;
+border-radius: ;  
+}
+
