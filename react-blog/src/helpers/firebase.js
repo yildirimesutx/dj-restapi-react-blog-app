@@ -134,17 +134,6 @@ fetch("http://127.0.0.1:8000/blog/api/", requestOptions)
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
 
-
-
-
-
-
-
-
-
-
-
-
 // firebase database
   // const db= getDatabase();
   // const contentRef= ref(db, "myblog")
@@ -168,6 +157,7 @@ export const  useFunc =()=>{
 
 
   const getBlogs = () =>{
+    // fetch ile drf api çektik
       fetch("http://127.0.0.1:8000/blog/api/")
       .then((response)=>response.json())
       .then(data=>{
@@ -180,6 +170,8 @@ export const  useFunc =()=>{
   useEffect(() => {
     setIsLoading(true)
     getBlogs()
+
+    // firebase db den 
   //   const db= getDatabase();
   // const contentRef= ref(db, "myblog")
 
