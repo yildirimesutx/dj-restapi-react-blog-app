@@ -105,16 +105,57 @@ export const signUpProvider = (navigate, msg)=>{
 
 
 export const AddContent = (title,imageUrl, content, date, email)=>{
-  const db= getDatabase();
-  const contentRef= ref(db, "myblog")
-  const newContentRef = push(contentRef)
-  set((newContentRef),{
-    title : title,
-    image :imageUrl,
-    content :content,
-    date : date,
-    email:email,
-  })
+
+  // bu bölümü drf postman api, post
+  const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Cookie", "csrftoken=moobGkvuEU6jPPxI6HgO0khWkeHgqZ0IPC3rWxeWJdXQ7gd4x96e1ZF7Eoem7yt9");
+
+const raw = JSON.stringify({
+  "title": title,
+  "content": content,
+  "image": imageUrl,
+  "user": 2,
+  "date": date,
+  "post_view": 0,
+  "post_like": 0,
+  "comment_number": 0
+});
+
+const requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://127.0.0.1:8000/blog/api/", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+
+
+
+
+
+
+
+
+
+
+
+// firebase database
+  // const db= getDatabase();
+  // const contentRef= ref(db, "myblog")
+  // const newContentRef = push(contentRef)
+  // set((newContentRef),{
+  //   title : title,
+  //   image :imageUrl,
+  //   content :content,
+  //   date : date,
+  //   email:email,
+  // })
 }
 
 
@@ -124,24 +165,36 @@ export const  useFunc =()=>{
   const [isLoading, setIsLoading] = useState()
   const [contentCard, setContentCard] = useState()
 
+
+
+  const getBlogs = () =>{
+      fetch("http://127.0.0.1:8000/blog/api/")
+      .then((response)=>response.json())
+      .then(data=>{
+        console.log(data)
+        setContentCard(data)
+        setIsLoading(false)
+    }).catch((err) => console.log(err))
+  }
+
   useEffect(() => {
     setIsLoading(true)
+    getBlogs()
+  //   const db= getDatabase();
+  // const contentRef= ref(db, "myblog")
 
-    const db= getDatabase();
-  const contentRef= ref(db, "myblog")
-
-  onValue(contentRef, (snapshot)=>{
-    const data = snapshot.val()
-    const myblogArray=[]
+  // onValue(contentRef, (snapshot)=>{
+  //   const data = snapshot.val()
+  //   const myblogArray=[]
    
-    for (let id in data){
-      myblogArray.push({id, ...data[id]})
-    }
-    setContentCard(myblogArray)
-    setIsLoading(false)
+  //   for (let id in data){
+  //     myblogArray.push({id, ...data[id]})
+  //   }
+  //   setContentCard(myblogArray)
+  //   setIsLoading(false)
 
 
-  })
+  // })
    
   }, [])
   return {isLoading,contentCard }

@@ -24,8 +24,8 @@ class LikeSerializer(serializers.ModelSerializer):
 
 class NewPostSerializer(serializers.ModelSerializer):
     
-    comments = CommentsSerializer(many=True, )
-    likes = LikeSerializer(many=True)
+    # comments = CommentsSerializer(many=True,read_only=True )
+    # likes = LikeSerializer(many=True, read_only=True)
 
     class Meta :
         model = NewPost
@@ -33,13 +33,13 @@ class NewPostSerializer(serializers.ModelSerializer):
         fields =[
            "title",
            "content",
-           "post_image",
-           "created",
+           "image",
+           "date",
            "user",
            "post_view",
            "post_like",
            "comment_number",
 
-           "comments",
-           "likes"
+        #    "comments",
+        #    "likes"
         ]       

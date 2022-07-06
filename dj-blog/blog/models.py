@@ -9,8 +9,8 @@ from django.db.models.enums import Choices
 class NewPost(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=500)
-    post_image = models.CharField(max_length=350, blank=True)
-    created = models.DateTimeField(auto_now_add=True)
+    image = models.CharField(max_length=350, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     post_view = models.PositiveIntegerField(default=0)
     post_like = models.PositiveIntegerField(default=0)
