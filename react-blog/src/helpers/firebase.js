@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import {Toastify} from "./toastNotify";
 
 
+let updateState;
+// değişiklik olduğunda getBlogs ulaşabilmek için, yeni bir blog eklediğimizde sayfa render olmadan bloğun sayfada gözükmesi için getBlogs ulaşıyor, 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -131,7 +134,10 @@ const requestOptions = {
 
 fetch("http://127.0.0.1:8000/blog/api/", requestOptions)
   .then(response => response.text())
-  .then(result => console.log(result))
+  .then(result =>{ 
+    console.log(result)
+    updateState()
+})
   .catch(error => console.log('error', error));
 
 // firebase database
@@ -167,6 +173,8 @@ export const  useFunc =()=>{
     }).catch((err) => console.log(err))
   }
 
+  updateState = getBlogs;
+
   useEffect(() => {
     setIsLoading(true)
     getBlogs()
@@ -197,19 +205,68 @@ export const  useFunc =()=>{
 // * delete data
 
 export const DeleteBlog = (id)=>{
-  const db= getDatabase();
+  // const db= getDatabase();
 
-  const contentRef= ref(db, "myblog")
-  remove(ref(db, "myblog/"+id))
+  // const contentRef= ref(db, "myblog")
+  // remove(ref(db, "myblog/"+id))
+
+
+
+
+
+
+fetch("http://127.0.0.1:8000/blog/api/"+id+"/", {method: 'DELETE'})
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+
+
+
+
 } 
 
 
 // update 
 
 export const EditBlog=(detail)=>{
-  const db= getDatabase();
-  const updates = {};
+  // const db= getDatabase();
+  // const updates = {};
   
-  updates["/myblog/"+detail.id] = detail;
-   return update(ref(db), updates)
+  // updates["/myblog/"+detail.id] = detail;
+  //  return update(ref(db), updates)
+
+  
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  
+  const raw = JSON.stringify({
+    // "title": title,
+    // "content": content,
+    // "image": imageUrl,
+    // "user": 2,
+    // "date": date,
+    // "post_view": 0,
+    // "post_like": 0,
+    // "comment_number": 0
+    ...detail,
+  });
+  
+  var requestOptions = {
+    method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+  
+  fetch("http://127.0.0.1:8000/blog/api/" + detail.id + "/", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+ 
+
+
+
+
+
 }

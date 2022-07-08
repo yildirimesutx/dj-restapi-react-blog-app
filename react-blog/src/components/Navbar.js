@@ -67,7 +67,7 @@ const {currentUser} =   useContext(AuthContext)
           <img className="cw_img" src={logo} alt="logo" />
           </NavLink>
           <NavLink to={"/dashboard"}>
-          <h1>My Blog</h1>
+          <h1>Tech Blog</h1>
           </NavLink>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
