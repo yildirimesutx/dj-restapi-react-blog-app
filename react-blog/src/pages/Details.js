@@ -10,11 +10,12 @@ const Details = () => {
   const {detail} = useContext(BlogContext)
   const {currentUser} = useContext(AuthContext)
   const {setDetail} = useContext(BlogContext)
-
+  console.log(detail.id)
 
  const handleDelete = (id)=>{
-  navigate("/dashboard")
   DeleteBlog(id)
+  console.log(id)
+  navigate("/dashboard")
 }
 
 const handleUpdate = (id, title, image, content, date, email)=>{

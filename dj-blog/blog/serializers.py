@@ -31,6 +31,7 @@ class NewPostSerializer(serializers.ModelSerializer):
         model = NewPost
         # field = '__all__'
         fields =[
+           "id",
            "title",
            "content",
            "image",

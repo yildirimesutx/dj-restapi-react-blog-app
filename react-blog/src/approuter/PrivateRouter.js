@@ -8,8 +8,8 @@ const PrivateRouter = () => {
   const {currentUser} = useContext(AuthContext);
   let location = useLocation() ;
 
-  
-  if(!currentUser){
+  // currentUser
+  if(!true){
     toastWarnNotify("You need to login first")
     return (
       <Navigate to="/login" state={{ from: location }} replace />

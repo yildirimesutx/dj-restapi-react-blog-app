@@ -2,21 +2,28 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import  "./Login.css"
 import blogImg  from "../assets/blok.png"
-import { useState } from 'react'
+import { useState, useContext} from 'react'
 import google from "../assets/google.png"
 import { signInAnonymously } from 'firebase/auth'
-import { signIn, signUpProvider } from '../helpers/firebase'
+import {signUpProvider } from '../helpers/firebase'
+// import {signIn  } from '..//firebase'
+import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-
+const [username, setUserName] = useState()
 const [email, setEmail] = useState()
 const [password, setPassword] = useState()
 const navigate = useNavigate()
 
+const {signIn} = useContext(AuthContext)
+
+
+
 const handleSubmit = (e)=>{
   e.preventDefault()
-  signIn(email, password, navigate)
+  signIn(username, email, 
+    password, navigate)
   
 }
 
@@ -31,6 +38,12 @@ return (
    <img className='imgBlog' src={blogImg} alt="" />
 
    <form onSubmit={handleSubmit}>
+   <div class="mb-3">
+    <input type="text"   className="form-control mt-5 mb-4"  id="exampleInputusername" aria-describedby="emailHelp" placeholder='Username' onChange={(e)=>setUserName(e.target.value)}/>
+  </div>
+
+
+
   <div class="mb-3">
     <input type="email"   className="form-control mt-5 mb-4"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Email' onChange={(e)=>setEmail(e.target.value)}/>
   </div>

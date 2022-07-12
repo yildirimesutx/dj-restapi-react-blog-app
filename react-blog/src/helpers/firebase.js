@@ -1,13 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
+import {Register} from "../pages/Register"
 
 import { getDatabase, onValue, push, ref, remove, set, update } from "firebase/database";
 import { useEffect, useState } from "react";
 import {Toastify} from "./toastNotify";
 
-
+let username1 ;
 let updateState;
 // değişiklik olduğunda getBlogs ulaşabilmek için, yeni bir blog eklediğimizde sayfa render olmadan bloğun sayfada gözükmesi için getBlogs ulaşıyor, 
 
@@ -29,32 +29,105 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-export const createUser = async (email, 
-  password, navigate) =>{
-  try {
-    let userCredential = await createUserWithEmailAndPassword (
-      auth, 
-      email, 
-      password
-    )
-    navigate("/dashboard")
-    console.log(userCredential)
-  } catch (error) {
+export const createUser = async (email, password, navigate, username, password2) =>{
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cookie", "csrftoken=moobGkvuEU6jPPxI6HgO0khWkeHgqZ0IPC3rWxeWJdXQ7gd4x96e1ZF7Eoem7yt9");
     
-  }
+    var raw = JSON.stringify({
+      "username": username,
+      "email": email,
+      "password": password,
+      "password2": password2
+    });
+    
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    fetch("http://127.0.0.1:8000/register/", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+
+      navigate("/dashboard")
+
+
+
+
+
+  // try {
+  //   let userCredential = await createUserWithEmailAndPassword (
+  //     auth, 
+  //     email, 
+  //     password
+  //   )
+  //   navigate("/dashboard")
+  //   console.log(userCredential)
+  // } catch (error) {
+    
+  // }
 }
 
-export const signIn = async (email, 
-  password, navigate) =>{
-  try {
-    let userCredential = await signInWithEmailAndPassword(auth, email, password)
-    navigate("/dashboard")
-    Toastify("success")
-    console.log(userCredential)
-  } catch (err) {
-    alert(err.message)
-  }
-}
+// export const signIn = async (username, email, 
+//   password, navigate) =>{
+
+//     var myHeaders = new Headers();
+// myHeaders.append("Content-Type", "application/json");
+// myHeaders.append("Cookie", "csrftoken=fZzRS5Ro6XJoEtDw0XaEWQcNv3RXQ39YCLYMvmKLsdH60xYOY5i4hnWzS4TnXn8R; sessionid=w662tjuvmi3kdd70w11n2oqvbxpe3qls");
+
+// var raw = JSON.stringify({
+//   "username": username,
+//   "email": email,
+//   "password": password
+// });
+
+// var requestOptions = {
+//   method: 'POST',
+//   headers: myHeaders,
+//   body: raw,
+//   redirect: 'follow'
+// };
+
+// fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
+//   .then(response => response.text())
+//   // .then(result => console.log(result))
+//   .then(result => username1=result)
+//   .catch(error => console.log('error', error));
+
+//   console.log(username1)
+
+
+
+
+
+
+//   navigate("/dashboard")
+
+
+
+
+
+
+
+
+
+
+
+
+//   // try {
+//   //   let userCredential = await signInWithEmailAndPassword(auth, email, password)
+//   //   navigate("/dashboard")
+//   //   Toastify("success")
+//   //   console.log(userCredential)
+//   // } catch (err) {
+//   //   alert(err.message)
+//   // }
+// }
 
 export const logOut =()=>{
   signOut(auth);
@@ -71,13 +144,17 @@ export const logOut =()=>{
 
 
 export const userObserver = (setCurrentUser)=>{
-  onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      setCurrentUser(currentUser)
-    } else {
-      setCurrentUser(false)
-    }
-  });
+   console.log(username1)
+
+
+
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   if (currentUser) {
+  //     setCurrentUser(currentUser)
+  //   } else {
+  //     setCurrentUser(false)
+  //   }
+  // });
 }
 
 
@@ -214,7 +291,7 @@ export const DeleteBlog = (id)=>{
 
 
 
-
+console.log(id);
 fetch("http://127.0.0.1:8000/blog/api/"+id+"/", {method: 'DELETE'})
   .then(response => response.text())
   .then(result => console.log(result))

@@ -26,11 +26,13 @@ const Dashboard = () => {
   const navigate = useNavigate()
   const { currentUser } = useContext(AuthContext);
 
+  console.log(currentUser);
   const {setDetail} = useContext(BlogContext)
   console.log(contentCard);
 
   const handleDetails =(id, title, image, content, date, email)=>{
       setDetail({id, title, image, content, date, email})
+      console.log(id);
       navigate("/details")
   }
 

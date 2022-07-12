@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.serializers import GoogleLogin
+# from users.serializers import GoogleLogin
 
 
 # <!-- Three modules for swagger: -->
@@ -48,8 +48,8 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
    
     # path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('dj-rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
-    path('accounts/', include('allauth.urls')),
+    # path('dj-rest-auth/google/', GoogleLogin.as_view(), name='google_login'),
+    # path('accounts/', include('allauth.urls')),
 
     # Url paths for swagger:
     path("swagger(<format>\.json|\.yaml)", schema_view.without_ui(cache_timeout=0), name="schema-json"),
