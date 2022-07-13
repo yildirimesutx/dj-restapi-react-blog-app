@@ -8,6 +8,7 @@ export const AuthContext = createContext()
 
 
 const AuthContextProvider = ({children}) =>{
+
 const [currentUser,setCurrentUser] = useState()
 
 const signIn = async (username, email, 
@@ -45,9 +46,9 @@ fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
 
 
 
-useEffect(() => {
-  userObserver(setCurrentUser)
-}, [])
+// useEffect(() => {
+//   userObserver(setCurrentUser)
+// }, [])
 
 // yeni bir kullanıcı geldiğnde useEffect ile tutuyoruz
 // context yapısı ile tuttuğumuz state nerede kullanmak istiyorsak o componenti sarmarlıyoruz, authentication işlemi olduğundan dolayı  tüm sayfalarda kullanılması için genel olarak yapıyoruz sarmarlama işlemini app.jsde yapıyoruz. app.js içindeki sarmarladığımız componente ve bu componentin tüm childrenlarında proplar kulanılmaktadır

@@ -2,12 +2,17 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {Register} from "../pages/Register"
-
-import { getDatabase, onValue, push, ref, remove, set, update } from "firebase/database";
+import { useContext } from "react";
+// import { getDatabase, onValue, push, ref, remove, set, update } from "firebase/database";
 import { useEffect, useState } from "react";
 import {Toastify} from "./toastNotify";
+import axios from "axios"
+import { AuthContext } from '../contexts/AuthContext';
 
-let username1 ;
+
+const { currentUser } = useContext(AuthContext);
+
+
 let updateState;
 // değişiklik olduğunda getBlogs ulaşabilmek için, yeni bir blog eklediğimizde sayfa render olmadan bloğun sayfada gözükmesi için getBlogs ulaşıyor, 
 
@@ -129,11 +134,22 @@ export const createUser = async (email, password, navigate, username, password2)
 //   // }
 // }
 
-export const logOut =()=>{
-  signOut(auth);
-  Toastify("logged out successfully")
-  // alert("logged out successfully");
-}
+ 
+
+export const logOut = async (navigate) => {
+
+        const res = await axios.post("http://127.0.0.1:8000/auth/logout/")
+        if (res.status === 200) {
+          Toastify("User logout successfully")
+          
+          setCurrentUser(false)
+          
+          navigate("/dashboard")
+        }
+        console.log(res)
+  
+     
+};
 
 
 
@@ -143,19 +159,19 @@ export const logOut =()=>{
 
 
 
-export const userObserver = (setCurrentUser)=>{
-   console.log(username1)
+// export const userObserver = (setCurrentUser)=>{
+//    console.log(username1)
 
 
 
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   if (currentUser) {
-  //     setCurrentUser(currentUser)
-  //   } else {
-  //     setCurrentUser(false)
-  //   }
-  // });
-}
+//   // onAuthStateChanged(auth, (currentUser) => {
+//   //   if (currentUser) {
+//   //     setCurrentUser(currentUser)
+//   //   } else {
+//   //     setCurrentUser(false)
+//   //   }
+//   // });
+// }
 
 
 // https://firebase.google.com/docs/auth/web/google-signin
