@@ -10,7 +10,7 @@ import axios from "axios"
 import { AuthContext } from '../contexts/AuthContext';
 
 
-const { currentUser } = useContext(AuthContext);
+// const { currentUser } = useContext(AuthContext);
 
 
 let updateState;
@@ -142,7 +142,7 @@ export const logOut = async (navigate) => {
         if (res.status === 200) {
           Toastify("User logout successfully")
           
-          setCurrentUser(false)
+          // setCurrentUser(false)
           
           navigate("/dashboard")
         }
