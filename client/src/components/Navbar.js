@@ -8,11 +8,13 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
 
     const navigate = useNavigate()
-    const currentUser = false 
+    const {currentUser} = React.useContext(AuthContext);
+    console.log(currentUser);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleMenu = (event) => {
@@ -22,19 +24,23 @@ const Navbar = () => {
 
 
 
-      const handleClose = (e) => {
+    const handleClose = (e) => {
         setAnchorEl(null);
         if (e.target.innerText=== 'Login') {
           navigate('/login')
         }else if (e.target.innerText === 'Register') {
           navigate('/register')
-        }else if (e.target.innerText === 'Logout'){
+        }
+        else if (e.target.innerText === 'New Post') {
+          navigate('/newpost')
+        } 
+        else if (e.target.innerText === 'Logout'){
         //   logOut(navigate)
         //   setQuiz([])
         //   setQuizQuestions([])
         }
     
-      };
+    };
 
 
 
@@ -42,23 +48,26 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }} >
      
       <AppBar position="static" style={{cursor:"pointer"}} sx={{backgroundColor:"black"}}>
-        <Toolbar>
+        <Toolbar className='toolbar'>
         
-            <Typography variant="h6" color="inherit" sx={{ flexGrow: 3,textAlign:"left"}} style={{marginLeft:"0px"}} onClick={()=>navigate("/")} >
+            <Typography variant="h6" color="inherit"  onClick={()=>navigate("/")} >
             <svg style={{width:"40px", marginTop:"10px"}} xmlns="http://www.w3.org/20/svg" class="h-1 w-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
           </svg>  
             </Typography>
-           
+
+            <Typography  style={{ textAlign:"center"}} variant="h6" color="inherit"   onClick={()=>navigate("/")} >
+              Tech Blog
+            </Typography>
             
             {currentUser ? (
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1,textAlign:"end",paddingRight:"1rem"}} > 
+            <Typography variant="h6" component="div"  > 
             {currentUser?.toUpperCase()}
           </Typography>):
           (<Typography variant="h6" component="div" sx={{ flexGrow: 1,textAlign:"end",paddingRight:"1rem" }}>
           Guest
         </Typography>)}
-          
+        
         <div>
               <IconButton
                 size="large"
@@ -73,7 +82,7 @@ const Navbar = () => {
                   opacity: [0.9, 0.8, 0.7],
                 } }}
               >
-                {currentUser ? currentUser[0].toUpperCase():<AccountCircle sx={{fontSize:55,width:"8vh",height:"8vh",color: "black"}}/> }
+                {currentUser ? currentUser.user.username[0].toUpperCase():<AccountCircle sx={{fontSize:55,width:"8vh",height:"8vh",color: "black"}}/> }
               </IconButton>
               {currentUser ? (<Menu
               
@@ -91,6 +100,7 @@ const Navbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+                <MenuItem onClick={(e)=>handleClose(e)}>New Post</MenuItem>
                 <MenuItem onClick={(e)=>handleClose(e)}>Logout</MenuItem>
                 
               </Menu>):(<Menu
