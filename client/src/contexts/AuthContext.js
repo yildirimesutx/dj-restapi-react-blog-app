@@ -9,7 +9,7 @@ const url = "http://127.0.0.1:8000/"
 
 const AuthContextProvider = (props) => {
 
-const [currentUser, setCurrentUser] = useState();
+const [currentUser, setCurrentUser] = useState(JSON.parse(sessionStorage.getItem("result")) || null);
 
 
     const createUser = async (username,email, password,  password2, navigate) =>{
@@ -61,12 +61,15 @@ const [currentUser, setCurrentUser] = useState();
         redirect: 'follow'
       };
       
-    //   fetch(`${url}auth/login/`, requestOptions)
-    
-         fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
-        .then(response => response.text())
+        fetch(`${url}auth/login/`, requestOptions)
+        //  fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
+        .then(response => response.json())
         // .then(result => console.log(result))
-        .then(result => setCurrentUser(result))
+        .then(result => {
+          sessionStorage.setItem("result",JSON.stringify(result))
+          setCurrentUser(result)
+        })
+        
         .catch(error => console.log('error', error));
       
       
@@ -75,26 +78,7 @@ const [currentUser, setCurrentUser] = useState();
       }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      
 
 
 
@@ -104,6 +88,7 @@ const [currentUser, setCurrentUser] = useState();
     let value={
         currentUser,
         createUser,
+        setCurrentUser,
         signIn,
         // logOut,
         // myKey

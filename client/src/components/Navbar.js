@@ -9,11 +9,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import { getBottomNavigationActionUtilityClass } from '@mui/material';
 
 const Navbar = () => {
 
     const navigate = useNavigate()
-    const {currentUser} = React.useContext(AuthContext);
+    const {currentUser, setCurrentUser} = React.useContext(AuthContext);
     console.log(currentUser);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -36,8 +37,12 @@ const Navbar = () => {
         } 
         else if (e.target.innerText === 'Logout'){
         //   logOut(navigate)
-        //   setQuiz([])
-        //   setQuizQuestions([])
+      
+            console.log(e.target.innerText);
+            sessionStorage.clear()
+            setCurrentUser(null)
+            navigate("/")
+
         }
     
     };
@@ -48,21 +53,21 @@ const Navbar = () => {
     <Box sx={{ flexGrow: 1 }} >
      
       <AppBar position="static" style={{cursor:"pointer"}} sx={{backgroundColor:"black"}}>
-        <Toolbar className='toolbar'>
+        <Toolbar >
         
             <Typography variant="h6" color="inherit"  onClick={()=>navigate("/")} >
-            <svg style={{width:"40px", marginTop:"10px"}} xmlns="http://www.w3.org/20/svg" class="h-1 w-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            <svg style={{width:"40px", marginTop:"10px"}} xmlns="http://www.w3.org/20/svg" className="h-1 w-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
           </svg>  
             </Typography>
 
-            <Typography  style={{ textAlign:"center"}} variant="h6" color="inherit"   onClick={()=>navigate("/")} >
+            <Typography   sx={{ flexGrow:4 ,textAlign:"left"}} variant="h6" color="inherit"   onClick={()=>navigate("/")} >
               Tech Blog
             </Typography>
             
             {currentUser ? (
             <Typography variant="h6" component="div"  > 
-            {currentUser?.toUpperCase()}
+            {currentUser?.user.username.toUpperCase()}
           </Typography>):
           (<Typography variant="h6" component="div" sx={{ flexGrow: 1,textAlign:"end",paddingRight:"1rem" }}>
           Guest
@@ -82,7 +87,7 @@ const Navbar = () => {
                   opacity: [0.9, 0.8, 0.7],
                 } }}
               >
-                {currentUser ? currentUser.user.username[0].toUpperCase():<AccountCircle sx={{fontSize:55,width:"8vh",height:"8vh",color: "black"}}/> }
+                {currentUser ? currentUser?.user.username[0].toUpperCase():<AccountCircle sx={{fontSize:55,width:"8vh",height:"8vh",color: "black"}}/> }
               </IconButton>
               {currentUser ? (<Menu
               
