@@ -14,7 +14,7 @@ import { getBottomNavigationActionUtilityClass } from '@mui/material';
 const Navbar = () => {
 
     const navigate = useNavigate()
-    const {currentUser, setCurrentUser} = React.useContext(AuthContext);
+    const {currentUser, setCurrentUser, logOut} = React.useContext(AuthContext);
     console.log(currentUser);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -36,7 +36,7 @@ const Navbar = () => {
           navigate('/newpost')
         } 
         else if (e.target.innerText === 'Logout'){
-        //   logOut(navigate)
+          logOut(navigate)
       
             console.log(e.target.innerText);
             sessionStorage.clear()

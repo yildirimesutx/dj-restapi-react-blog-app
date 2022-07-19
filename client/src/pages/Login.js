@@ -41,9 +41,18 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
- 
-    signIn(username, email, 
-      password, navigate)
+    if (username && email && password) {
+      signIn(username, email, 
+        password, navigate)
+    }else{
+      alert("Please fill all the fields")
+    }
+
+
+
+
+
+  
   
   };
   
