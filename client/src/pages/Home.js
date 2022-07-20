@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
+
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
@@ -11,7 +11,7 @@ import ShareIcon from '@mui/icons-material/Share';
 
 import loading from "../assets/loading.gif"
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+
 import { AccountCircle } from "@mui/icons-material";
 import { BlogContext } from "../contexts/BlogContext";
 // import {ChatBubbleOutlineOutlinedIcon} from "@mui/icons-material";
@@ -22,26 +22,25 @@ import { BlogContext } from "../contexts/BlogContext";
 
 const Home = () => {
 
-  const {isLoading, contentCard} = useFunc()
+  
   const navigate = useNavigate()
-  const { currentUser } = useContext(AuthContext);
-  const { currentUser } = useContext(AuthContext);
+  const {contentCard, isLoading } = useContext(BlogContext);
+  
 
-  // console.log(currentUser);
-  // const {setDetail} = useContext(BlogContext)
-  // console.log(contentCard);
+ 
+  console.log(contentCard);
 
-  // const handleDetails =(id, title, image, content, date, email)=>{
-  //     setDetail({id, title, image, content, date, email})
-  //     console.log(id);
-  //     navigate("/details")
-  }
+  const handleDetails =()=>{
+    
+   
+      navigate("/")
+  } 
 
 
 
   return (
     <div className='das_main'>
-      {/* <h1 style={{color:"white"}}> ──  Dashboard  ── </h1>
+      <h1 style={{color:"white"}}> ──  Dashboard  ── </h1>
       <div className='blog_card'>
       {isLoading ? (
         <img src={loading} alt="loading" className='loading' />
@@ -89,19 +88,10 @@ const Home = () => {
         ))
       
       )}
-      </div> */}
+      </div>
     </div>
   );
 }
 
 export default Home
 
-import React from 'react'
-
-const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
-
-export default Home
