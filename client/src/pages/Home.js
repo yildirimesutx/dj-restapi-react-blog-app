@@ -7,9 +7,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-
+import "./style.css"
 
 import loading from "../assets/loading.gif"
+
 import { useNavigate } from 'react-router-dom';
 
 import { AccountCircle } from "@mui/icons-material";
@@ -33,7 +34,7 @@ const Home = () => {
   const handleDetails =()=>{
     
    
-      navigate("/")
+      navigate("/detail")
   } 
 
 
@@ -53,7 +54,7 @@ const Home = () => {
         contentCard?.map((item,index)=>(
           <div className='card' key={index} >
            <Card className="card_mui"  >
-          <img className="brand_logo" src={item.image} alt={item.title}  onClick={()=>handleDetails(item.id, item.title, item.image, item.content, item.date, item.email)}/>
+          <img className="brand_logo" src={item.image} alt={item.title} onClick={()=>handleDetails()} />
         <CardContent>
 
         <h5 className="brand_title" >{item.title}</h5>
@@ -87,7 +88,7 @@ const Home = () => {
           </div>
         ))
       
-      )}
+        )}
       </div>
     </div>
   );
@@ -95,3 +96,19 @@ const Home = () => {
 
 export default Home
 
+// import React, { useContext } from "react";
+// import { BlogContext } from "../contexts/BlogContext";
+
+
+// const Home = () => {
+
+//   const {contentCard} = useContext(BlogContext);
+
+//  console.log(contentCard);
+
+//   return (
+//     <div>Home</div>
+//   )
+// }
+
+// export default Home

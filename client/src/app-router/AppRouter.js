@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import NewPost from '../pages/NewPost'
+import  Detail  from '../pages/Detail'
 
 const AppRouter = () => {
 
@@ -16,6 +17,7 @@ const AppRouter = () => {
            <Route path="/login" element={<Login/>}/>
            <Route path="/register" element={<Register/>}/>
            <Route path='/newpost'  element={<NewPost/>}/>
+           <Route path='/detail'  element={<Detail/>}/>
         </Routes>
    </Router>
         
