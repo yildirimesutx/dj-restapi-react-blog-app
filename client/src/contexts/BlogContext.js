@@ -40,6 +40,7 @@ const BlogContextProvider = (props) => {
 // }, [])
 
 
+<<<<<<< HEAD
 
 const AddContent = (title, content, image, date,user)=>{
 
@@ -88,6 +89,8 @@ const AddContent = (title, content, image, date,user)=>{
 
 
 
+=======
+>>>>>>> 2e51189e03b5717547726b951557f573b51f90b4
 useEffect(() => {
 fetch(`${url}blog/api/`)
 .then((response)=>response.json())
@@ -98,11 +101,14 @@ setContentCard(data)
 
   }, []);
 
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> 2e51189e03b5717547726b951557f573b51f90b4
 
 
 
@@ -110,7 +116,10 @@ setContentCard(data)
     let value={
         contentCard,
         isLoading,
+<<<<<<< HEAD
         AddContent
+=======
+>>>>>>> 2e51189e03b5717547726b951557f573b51f90b4
       
        
     }

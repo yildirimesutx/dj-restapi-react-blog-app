@@ -27,8 +27,12 @@ const Home = () => {
   
   const navigate = useNavigate()
   const {contentCard, isLoading } = useContext(BlogContext);
+<<<<<<< HEAD
   const {currentUser} = useContext(AuthContext);
   console.log(currentUser)
+=======
+  
+>>>>>>> 2e51189e03b5717547726b951557f573b51f90b4
 
  
   console.log(contentCard);
@@ -98,3 +102,22 @@ const Home = () => {
 
 export default Home
 
+<<<<<<< HEAD
+=======
+// import React, { useContext } from "react";
+// import { BlogContext } from "../contexts/BlogContext";
+
+
+// const Home = () => {
+
+//   const {contentCard} = useContext(BlogContext);
+
+//  console.log(contentCard);
+
+//   return (
+//     <div>Home</div>
+//   )
+// }
+
+// export default Home
+>>>>>>> 2e51189e03b5717547726b951557f573b51f90b4
